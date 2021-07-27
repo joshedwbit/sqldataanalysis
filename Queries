@@ -1,0 +1,46 @@
+SELECT DISTINCT COUNT(JOB_ID), JOB_TYPE, AVG(JOB_COST) as Averagecost, VARIANCE(JOB_COST) as Var FROM `curious-petal-316212.arcagen.arcagen1`
+GROUP BY JOB_TYPE
+
+##Effect of depth;
+SELECT COUNT(JOB_ID) as Jobs, ROUND(DEPTH_M,0) as DEPTH_M, AVG(JOB_COST) as Averagecost FROM `curious-petal-316212.arcagen.arcagen1`
+GROUP BY DEPTH_M
+ORDER BY DEPTH_M
+
+##Depth scatter spot;
+SELECT DEPTH_M, JOB_COST FROM `curious-petal-316212.arcagen.arcagen1`
+WHERE RAND()>=0.97 AND DEPTH_M>0
+
+##Effect of diameter;
+SELECT ROUND(DIAMETER_MM,0) as DIAMETER_MM, COUNT(JOB_ID), AVG(JOB_COST) as Averagecost FROM `curious-petal-316212.arcagen.arcagen1`
+GROUP BY DIAMETER_MM
+ORDER BY DIAMETER_MM
+
+##Effects of length;
+SELECT ROUND(LENGTH_M/5)*5 as LENGTH_M, COUNT(JOB_ID) as Jobs, AVG(JOB_COST) as Averagecost FROM `curious-petal-316212.arcagen.arcagen1`
+GROUP BY LENGTH_M
+ORDER BY LENGTH_M
+
+##Length scatter plot
+SELECT LENGTH_M, JOB_COST FROM `curious-petal-316212.arcagen.arcagen1`
+WHERE RAND()>=0.97
+
+
+##Effect of material;
+SELECT MATERIAL, COUNT(JOB_ID) as Jobs, AVG(JOB_COST) as Averagecost FROM `curious-petal-316212.arcagen.arcagen1`
+GROUP BY MATERIAL
+ORDER BY MATERIAL
+
+
+----------------------------------------------------------------------------------------------
+
+Correlation coefficients;
+Depth;
+SELECT CORR(DEPTH_M,JOB_COST) FROM `curious-petal-316212.arcagen.arcagen1`
+WHERE DEPTH_M>0
+
+Diameter;
+SELECT CORR(DIAMETER_MM,JOB_COST) FROM `curious-petal-316212.arcagen.arcagen1`
+WHERE DIAMETER_MM<500000
+
+Length;
+SELECT CORR(LENGTH_M, JOB_COST) as ppmcc FROM `curious-petal-316212.arcagen.arcagen1`
